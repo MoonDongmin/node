@@ -1,69 +1,88 @@
-import dotenv from "dotenv";
-import express, {response} from "express";
-import http from "http";
-import path from "path";
-import serveStatic from "serve-static";
-import expressSession from "express-session";
 import {MongoClient} from "mongodb";
 
-dotenv.config();
-
-async function connection() {
-  const databaseUrl = "mongodb://localhost:27017/nodejs";
+// 1. get connection
+async function getConnection() {
+  const databaseUrl = "mongodb://localhost:27017/nodejs2";
   const client = await MongoClient.connect(databaseUrl);
-  const database = client.db("nodejs");
- return database.collection("users");
+  const database = client.db("nodejs2");
+  return database.collection("users");
 }
 
-async function Create (user) {
-  let connect = await connection();
-  await connect.insertOne(user);
-};
-
-async function Read(userName){
-  let connect = await connection();
-  return connect.find(userName).toArray();
+// 2. Create
+async function createUser(user) {
+  let connection = await getConnection()
+  await connection.insertOne(user)
 }
 
-function print() {
-  const user = read();
-  console.log(`current users => ${JSON.stringify(user.toArray())}`);
+// 3. Read
+async function findUserByUserName(userName) {
+  let connection = await getConnection()
+  return await connection.find(userName).toArray()
 }
 
-async function del(userName){
-  let connect=await connection();
-  await connect.deleteMany(userName);
+// 4. Update
+async function updateUser(userName, newEmail) {
+  let connection = await getConnection()
+  return await connection.updateOne(userName, { $set : newEmail})
 }
 
-function find(object) {
-  const connect = connection();
-   console.log(`users => ${JSON.stringify(user.toArray())}`);
+// 5. Delete
+async function deleteUserByUserName(userName) {
+  let connection = await getConnection()
+  await connection.deleteMany(userName)
 }
 
+async function main() {
+  let connection = await getConnection()
+  await connection.deleteMany({name : "nero"})
+  await connection.deleteMany({name : "zero"})
 
-const app = express();
-const __dirname = path.resolve();
+  // 1. create nero user
+  await createUser({
+    name : "nero",
+    email: "daum@daum.net"
+  })
+  // 2. create zero user
+  await createUser({
+    name : "zero",
+    email: "zero@naver.com"
+  })
 
-app.set("port", process.env.PORT || 13000);
-app.use(express.urlencoded({extended: false}));
-app.use("/public", serveStatic(path.join(__dirname, "public")));
-app.use(expressSession({
-  secret: "my key",
-  resave: true,
-  saveUninitialized: true,
-}));
+  // 3. read nero user
+  let user1 = await findUserByUserName({name : "nero"})
+  console.log("=== print nero user ===");
+  console.log(user1);
 
-http.createServer(app)
-  .listen(app.get("port"), function () {
-    console.log("connected");
+  // 4. read zero user
+  let user2 = await findUserByUserName({name : "zero"})
+  console.log("=== print zero user ===");
+  console.log(user2);
 
-  });
+  // 5. update
+  await updateUser({name: "nero"}, {email: "nero@update.com"})
 
-function main() {
-  const newUser = {
-    name: "nero",
-    email: "daum@daum.net",
-  };
-  insert();
-  print();
+  // 6. read
+  let user3 = await findUserByUserName({name : "nero"})
+  console.log("=== print updated nero user ===");
+  console.log(user3)
+
+  // 7. delete
+  await deleteUserByUserName({name: "nero"})
+
+  // 8. get all user
+  let users = await findUserByUserName({})
+  console.log("=== print all users ===");
+  console.log(users);
 }
+
+main()
+
+//1.몽고디비  연결
+//2.몽고디비  "database생성
+//3. database - collection 생성
+//4. collection->users<정보> create생성
+//5. users 출력 => find이용
+//6. users update => <정보> 수정
+//7. users delete => 삭제
+//8. users 삭제 됐는지 출력
+//9. end
