@@ -1,0 +1,25 @@
+###
+POST http://localhost:8000/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Dongmin",
+  "email": "water_8760@naver.com",
+  "address": "Daejeon Yuseong Dukmeong"
+}
+
+###
+POST http://localhost:8000/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "JaeYong",
+  "email": "1234@naver.com",
+  "address": "Daejeon Yuseong Hackha"
+}
+
+###
+DELETE http://localhost:8000/api/users/640c7066840a5b811c3903ed
+Accept: application/json
