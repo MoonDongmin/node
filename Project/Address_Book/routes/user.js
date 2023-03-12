@@ -69,10 +69,10 @@ router.route("/api/users/:userId")
   })
 
   .patch(async (req, res) => {
-    const findUserName = await findByName(req.params.username);
-    if ((findUserName.username === req.body.name)) {
-      console.log(req.params.userId);
-      const result = await updateUser(req.params.username, req.body.email);
+    const findUserName = await findByName(req.params.userId);
+    if ((findUserName.name === req.body.name)) {
+      //console.log(req.params.userId);
+      const result = await updateUser(req.params.userId, req.body.email);
       res.status(200)
         .send(result);
     } else {

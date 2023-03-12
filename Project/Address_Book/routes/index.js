@@ -21,11 +21,11 @@ export async function findAll(userName) {
   return await connection.find({}).toArray();
 }
 
-export async function findByName(userName) {
+export async function findByName(userId) {
   const connection = await getConnection();
-  console.log(userName);
-  const objectName = new ObjectId(userName);
-  return await connection.findOne({"name": objectName});
+  console.log(userId);
+  const objectName = new ObjectId(userId);
+  return await connection.findOne({"_id": objectName});
 }
 
 export async function findByAddress(userAddress) {
@@ -38,20 +38,20 @@ export async function findByAddress(userAddress) {
 export async function findByEmail(userEmail) {
   const connection = await getConnection();
   console.log(userEmail);
-  const objectName = new ObjectId(userEmail);
-  return await connection.findOne({"email": objectName});
+  const objectEmail = new ObjectId(userEmail);
+  return await connection.findOne({"email": objectEmail});
 }
 
 //정보갱신(Update)
-export async function updateUser(userName, userAddress) {
+export async function updateUser(userId, userAddress) {
   const connection = await getConnection();
-  const objectName = new ObjectId(userName);
-  return await connection.updateOne({"name": objectName}, {$set: {"address": userAddress}});
+  const objectName = new ObjectId(userId);
+  return await connection.updateOne({"_id": objectName}, {$set: {"address": userAddress}});
 }
 
 //정보삭제(Delete)
 export async function deleteByName(userName) {
   const connection = await getConnection();
   const objectUserName = new ObjectId(userName);
-  await connection.deleteOne({"name": objectUserName});
+  await connection.deleteOne({"_id": objectUserName});
 }
