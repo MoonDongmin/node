@@ -1,57 +1,64 @@
 import {MongoClient, ObjectId} from "mongodb";
-//정보추가, 정보갱신, 정보삭제, 정보조회(이름, 주소(동이름), 이메일),
-
-//연결
 export async function getConnection() {
-  const databaseUrl = "mongodb://Dongmin:min5314**@127.0.0.1/admin";
+  const databaseUrl = "mongodb://Dongmin:**%40%4012@localhost:27017/admin"
   const client = await MongoClient.connect(databaseUrl);
-  const database = client.db("address");
+  const database = client.db("addressbook");
   return database.collection("users");
 }
 
-//정보추가(Create)
-export async function createUser(user) {
+// 유저 정보 추가 (create)
+export async function createUser(users) {
   let connection = await getConnection();
-  return await connection.insertOne(user);
+  return await connection.insertOne(users);
 }
 
-//정보조회(Read)
-export async function findAll(userName) {
+// 유저 정보 조회 전체 (read)
+export async function findAll() {
   const connection = await getConnection();
   return await connection.find({}).toArray();
 }
 
-export async function findByName(userId) {
+// 유저 정보 조회 이름 (read)
+export async function findByName(UserName) {
   const connection = await getConnection();
-  console.log(userId);
-  const objectName = new ObjectId(userId);
-  return await connection.findOne({"_id": objectName});
+  return await connection.findOne({"UserName": UserName});
 }
 
-export async function findByAddress(userAddress) {
+// 유저 정보 조회 이메일 (read)
+export async function findByEmail(Email){
   const connection = await getConnection();
-  console.log(userAddress);
-  const objectAddress = new ObjectId(userAddress);
-  return await connection.findOne({"address": objectAddress});
+  return await connection.findOne({"Email":Email});
 }
 
-export async function findByEmail(userEmail) {
+export async function findById(userId){
   const connection = await getConnection();
-  console.log(userEmail);
-  const objectEmail = new ObjectId(userEmail);
-  return await connection.findOne({"email": objectEmail});
+  const objectId = new ObjectId(userId);
+  return await connection.findOne({"_id":objectId});
+}
+/*
+// 유저 정보 조회 주소 (read)
+export async function findByAddress(Address){
+    const connection = await getConnection();
+    if(Address.match("Dajeon")=="Dajeon")
+        return await connection.find({"Address":address});
+    else if(Address.match(""))
+}
+*/
+// 4. Update
+export async function updateById(userId, Email) {
+  const connection = await getConnection();
+  const objectId = new ObjectId(userId);
+  return await connection.updateOne({"_id": objectId}, {$set: {"Email": Email}});
 }
 
-//정보갱신(Update)
-export async function updateUser(userId, userAddress) {
-  const connection = await getConnection();
-  const objectName = new ObjectId(userId);
-  return await connection.updateOne({"_id": objectName}, {$set: {"address": userAddress}});
+// 5. Delete
+export async function deleteById(userId) {
+  let connection = await getConnection();
+  const objectId = new ObjectId(userId);
+  await connection.deleteOne({"_id": objectId});
 }
 
-//정보삭제(Delete)
-export async function deleteByName(userName) {
+export async function deleteByEmailAndNumber(Email, Number){
   const connection = await getConnection();
-  const objectUserName = new ObjectId(userName);
-  await connection.deleteOne({"_id": objectUserName});
+  return await connection.deleteOne({"Email":Email,"Number":Number});
 }

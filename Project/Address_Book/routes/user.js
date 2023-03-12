@@ -2,82 +2,91 @@ import express from "express";
 import {
   createUser,
   findAll,
+  updateById,
+  deleteById,
   findByName,
-  findByAddress,
+  findById,
   findByEmail,
-  updateUser,
-  deleteByName,
-} from "./index.js";
+  deleteByEmailAndNumber
+} from './index.js';
 
 const router = express.Router();
 
 router.route("/api/users")
-  .get(async (req, res) => {
-    let users = await findAll();
-    console.log(users);
-    res.status(200)
-      .send(`result: ${JSON.stringify(users)}`);
+
+  /* 이메일 검색
+  .get(async (req,res)=>{
+  const user = await findByEmail(req.params.userName);
+  console.log(user);
+  req.status(200).send(`result: ${JSON.stringify(user)}`);
+  })
+  */
+
+
+  .get(async (req,res)=>{
+    const user = await findByName(req.params.userName);
+    console.log(`result: ${JSON.stringify(user)}`);
+    req.status(200).send(user);
   })
 
+
+  /* 전체 검색
+  .get(async (req, res) => {
+      let users = await findAll();
+      console.log(users);
+      res.status(200)
+          .send(`result: ${JSON.stringify(users)}`);
+  })
+  */
+  .delete(async (req, res) => {
+    const deleteUser = await deleteByEmailAndNumber(req.params.Email,req.params.Number);
+    console.log(`result: ${JSON.stringify(deleteUser)}`);
+    console.log("deleted success");
+    res.status(200)
+      .send(deleteUser);
+  })
   .post(async (req, res) => {
-    if (req.body["name"] && req.body["email"] && req.body["address"]) {
+    if (req.body["UserName"] && req.body["Address"] && req.body["Number"] && req.body["Email"]) {
       const newUser = await createUser(req.body);
       res.status(201)
         .send(newUser);
-      console.log("생성 성공");
     } else {
-      console.log("생성 실패");
+      console.log(req.body);
+      console.log("Create Failed");
     }
   });
 
-router.route("/api/users/:userId")
 
+router.route("/api/users/:userId")
   .get(async (req, res) => {
-    const user = await findAll(req.params.username, req.params.email, req.params.address);
+    console.log(`${req.params.userId}`);
+    const user = await findById(req.params.userId);
     console.log(`result: ${JSON.stringify(user)}`);
     res.status(200)
-      .send(user);
-  })
-
-  .get(async (req, res) => {
-    const user = await findByName(req.params.username);
-    console.log(`result: ${JSON.stringify(user)}`);
-    req.status(200)
-      .send(user);
-  })
-
-  .get(async (req, res) => {
-    const user = await findByEmail(req.params.email);
-    console.log(`result: ${JSON.stringify(user)}`);
-    req.status(200)
-      .send(user);
-  })
-
-  .get(async (req, res) => {
-    const user = await findByAddress(req.params.address);
-    console.log(`result: ${JSON.stringify(user)}`);
-    req.status(200)
       .send(user);
   })
 
   .delete(async (req, res) => {
-    const deleteUser = await deleteByName(req.params.userId);
+    console.log(`${req.params.userId}`);
+    const deleteUser = await deleteById(req.params.userId);
     console.log(`result: ${JSON.stringify(deleteUser)}`);
-    console.log("삭제 성공");
+    console.log("deleted success");
     res.status(200)
       .send(deleteUser);
   })
 
   .patch(async (req, res) => {
-    const findUserName = await findByName(req.params.userId);
-    if ((findUserName.name === req.body.name)) {
-      //console.log(req.params.userId);
-      const result = await updateUser(req.params.userId, req.body.email);
+    console.log(`${JSON.stringify(req.body)}`);
+    console.log();
+    const findUser = await findById(req.params.userId);
+    if ((findUser.UserName === req.body.UserName) && (findUser.Number === req.body.Number)) {
+      console.log(req.params.userId);
+      const result = await updateById(req.params.userId, req.body.Email);
       res.status(200)
         .send(result);
     } else {
-      console.log("업데이트 실패");
+      console.log("sorry, I can't update");
     }
-  });
 
+  });
 export default router;
