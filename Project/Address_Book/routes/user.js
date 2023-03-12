@@ -66,7 +66,18 @@ router.route("/api/users/:userId")
     console.log("삭제 성공");
     res.status(200)
       .send(deleteUser);
+  })
 
+  .patch(async (req, res) => {
+    const findUserName = await findByName(req.params.username);
+    if ((findUserName.username === req.body.name)) {
+      console.log(req.params.userId);
+      const result = await updateUser(req.params.username, req.body.email);
+      res.status(200)
+        .send(result);
+    } else {
+      console.log("업데이트 실패");
+    }
   });
 
 export default router;

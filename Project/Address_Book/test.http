@@ -21,5 +21,15 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/users/640c7066840a5b811c3903ed
+DELETE http://localhost:8000/api/users/640d7f03a5cc26c6397acbe4
 Accept: application/json
+
+###
+PATCH http://localhost:8000/api/users/640d7f03a5cc26c6397acbe4
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "wisoft@naver.com",
+  "name": "Dongmin"
+}

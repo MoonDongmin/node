@@ -31,8 +31,8 @@ export async function findByName(userName) {
 export async function findByAddress(userAddress) {
   const connection = await getConnection();
   console.log(userAddress);
-  const objectName = new ObjectId(userAddress);
-  return await connection.findOne({"address": objectName});
+  const objectAddress = new ObjectId(userAddress);
+  return await connection.findOne({"address": objectAddress});
 }
 
 export async function findByEmail(userEmail) {
