@@ -1,7 +1,7 @@
 import {MongoClient, ObjectId} from "mongodb";
 
 export async function getConnection() {
-  const databaseUrl = "mongodb://Dongmin:min5314**@127.0.0.1/admin";
+  const databaseUrl = "mongodb://아이디:비번**@127.0.0.1/admin";
   const client = await MongoClient.connect(databaseUrl);
   const database = client.db("nodejs2");
   return database.collection("users");

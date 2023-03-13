@@ -1,0 +1,10 @@
+POST http://localhost:8000/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "userName": "Dongmin Moon",
+  "address": "Dajeon-si Yuseong-gu",
+  "phoneNumber": "010-1234-1234",
+  "email": "water8760@naver.com"
+}
