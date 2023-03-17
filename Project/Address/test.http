@@ -3,8 +3,25 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "userName": "Dongmin Moon",
+  "userName": "Dongmin",
   "address": "Dajeon-si Yuseong-gu",
   "phoneNumber": "010-1234-1234",
   "email": "water8760@naver.com"
 }
+
+###
+GET http://localhost:8000/api/users/Dongmin
+Accept: application/json
+
+###
+GET http://localhost:8000/api/users/Dajeon-si
+Accept: application/json
+
+###
+GET http://localhost:8000/api/users/water8760@naver.com
+Accept: application/json
+
+
+###
+DELETE http://localhost:8000/api/users/6412e30fd0fc444bca84b37a
+

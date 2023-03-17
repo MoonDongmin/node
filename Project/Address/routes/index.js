@@ -1,10 +1,10 @@
 import {MongoClient, ObjectId} from "mongodb";
 
 async function getConnection() {
-  const databaseUrl = "mongodb://Dongmin:min5314**@localhost:27017/admin";
+  const databaseUrl = "mongodb://Dongmin:min5314**@127.0.0.1/admin";
   const client = await MongoClient.connect(databaseUrl);
   const database = client.db("addressBook");
-  return database.collection("address");
+  return database.collection("addressBook");
 }
 
 export async function createUser(user) {
