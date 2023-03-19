@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 class User extends Sequelize.Model {
   static initiate(sequelize) {
@@ -25,10 +25,10 @@ class User extends Sequelize.Model {
       sequelize,
       timestamps: true,
       paranoid: true,
-      modelName: "User",
-      tableName: "users",
-      charset: "utf8",
-      collate: "utf8_general_ci",
+      modelName: 'User',
+      tableName: 'users',
+      charset: 'utf8',
+      collate: 'utf8_general_ci',
     });
   }
 
@@ -37,4 +37,4 @@ class User extends Sequelize.Model {
   }
 };
 
-model.exports = User;
+module.exports = User;
