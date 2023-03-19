@@ -24,12 +24,13 @@ export async function findByName(userName) {
 
 export async function findByEmail(email) {
   const connection = await getConnection();
-  return await connection.find({"email": email}).toArray();
+  return await connection.find({"email": {$regex: email}}).toArray();
 }
 
 export async function findByAddress(address) {
   const connection = await getConnection();
-  return await connection.find({"address": {$regex: address}}).toArray();
+  return await connection.find({"address": address}).toArray();
+
 }
 
 export async function updateUserByName(_id, userName) {

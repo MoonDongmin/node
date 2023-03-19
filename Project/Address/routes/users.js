@@ -31,34 +31,41 @@ router.route("/api/users")
     const findUser = await findAll();
     console.log(findUser);
   });
-router.route("/api/users/:userName")
+
+
+router.route("/api/users/userName/:userName")
   .get(async (req, res) => {
     if (req.params.userName) {
       const findUser = await findByName(req.params.userName);
       console.log(findUser);
       if (findUser !== undefined) {
         res.status(200).send(`${JSON.stringify(findUser)}`);
-        console.log(" 찾음");
+        console.log("찾음");
       } else
         console.log("못찾음");
     }
   });
 
-router.route("/api/users/:email")
+router.route("/api/users/email/:email")
   .get(async (req, res) => {
+    const findUserEmail = await findByEmail(req.params.email);
+    console.log(findUserEmail);
+    if (findUserEmail !== undefined) {
+      res.status(200).send(`${JSON.stringify(findUserEmail)}`);
+      console.log("찾음!");
+    } else
+      console.log("못찾음");
   });
 
-router.route("/api/users/:address")
+router.route("/api/users/address/:address")
   .get(async (req, res) => {
-    if (req.params.address) {
-      const findUser = await findByAddress(req.params.address);
-      console.log(findUser);
-      if (findUser !== undefined) {
-        res.status(200).send(`${JSON.stringify(findUser)}`);
-        console.log(`찾음`);
-      } else
-        console.log("못찾음");
-    }
+    const findUser = await findByAddress(req.params.address);
+    console.log(findUser);
+    if(findUser !== undefined) {
+      res.status(200).send(`${JSON.stringify(findUser)}`);
+      console.log("찾음");
+    }else
+      console.log("못찾음");
   });
 
 router.route("/api/users/:id")

@@ -1,3 +1,5 @@
+
+###
 POST http://localhost:8000/api/users
 Accept: application/json
 Content-Type: application/json
@@ -5,23 +7,24 @@ Content-Type: application/json
 {
   "userName": "Dongmin",
   "address": "Dajeon-si Yuseong-gu",
-  "phoneNumber": "010-1234-1234",
-  "email": "water8760@naver.com"
+  "email": "water8760@naver.com",
+  "phoneNumber": "01012341234"
+
 }
 
 ###
-GET http://localhost:8000/api/users/Dongmin
+GET http://localhost:8000/api/users/userName/Dongmin
 Accept: application/json
 
 ###
-GET http://localhost:8000/api/users/Dajeon-si
+GET http://localhost:8000/api/users/address/Dajeon-si
 Accept: application/json
 
 ###
-GET http://localhost:8000/api/users/water8760@naver.com
+GET http://localhost:8000/api/users/email/water8760@naver.com
 Accept: application/json
 
 
 ###
-DELETE http://localhost:8000/api/users/6412e30fd0fc444bca84b37a
+DELETE http://localhost:8000/api/users/6416d208eb8ac40d606daa25
 
