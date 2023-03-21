@@ -24,7 +24,19 @@ Accept: application/json
 GET http://localhost:8000/api/users/email/water8760@naver.com
 Accept: application/json
 
+###
+PATCH http://localhost:8000/api/users/6416d4f436ca46e0260893b1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "address": "DaeJeon"
+}
 
 ###
 DELETE http://localhost:8000/api/users/6416d208eb8ac40d606daa25
 
+###
+GET http://localhost:8000/api/users/jwt/6416d4f436ca46e0260893b1
+Accept: application/json
+Content-Type: application/json
