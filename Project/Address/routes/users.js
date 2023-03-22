@@ -15,8 +15,25 @@ router.route("/api/users")
       const check = req.body["address"];
       console.log(check);
       if (check.includes("-si") || check.includes("-gu") || check.includes("-dong")) {
-        const newUser = await createUser(req.body);
-        res.status(201).send(newUser);
+        await createUser(req.body);
+        const payload = {
+          user: {
+            id: req.body["id"],
+            userName: req.body["userName"],
+            address: req.body["address"],
+            email: req.body["email"],
+            phoneNumber: req.body["phoneNumber"],
+          },
+        };
+        jwt.sign(
+          payload,
+          "jwtSecret",
+          {expiresIn: "1h"},
+          (err, token) => {
+            if (err) throw err;
+            res.status(200).send({token});
+          },
+        );
         console.log("생성 성공");
       } else {
         res.status(406).send(req.body);
@@ -24,9 +41,10 @@ router.route("/api/users")
       }
     } else {
       res.status(406).send(req.body);
-      console.log("fail");
+      console.log("생성 실패");
     }
   })
+
 
   .get(async (req, res) => {
     const findUser = await findAll();
@@ -95,27 +113,11 @@ router.route("/api/users/:id")
       console.log("생성실패");
     }
   })
+
   .delete(async (req, res) => {
     const deleteUser = await deleteById(req.params.id);
     console.log(`${req.params.id}님이 삭제`);
     res.status(201).send(deleteUser);
-  });
-
-//여기서 생각해볼게 jwt 안에 내용에 id, email, address를 출력하고 싶지만,
-//route의 주소에 따라 출력할 수 있는게 한정됨. -> 라우터를 여러개 만들어서 찍어야함....
-router.route("/api/users/jwt/:id")
-  .get(async (req, res) => {
-    if (true) {
-      jwt.sign({"id": req.params.id,"email":req.params.email}, "jwtSECRET",
-        {expiresIn: "1h"},
-        (err, token) => {
-          if (err) throw err;
-          res.send({token});
-        });
-      console.log("jwt 토큰생성 완료");
-    } else {
-      console.log("jwt 토큰생성 실패");
-    }
   });
 
 

@@ -1,7 +1,7 @@
 import {MongoClient, ObjectId} from "mongodb";
 
 async function getConnection() {
-  const databaseUrl = "mongodb://Dongmin:뭘봐@127.0.0.1/admin";
+  const databaseUrl = "mongodb://Dongmin:min5314**@127.0.0.1/admin";
   const client = await MongoClient.connect(databaseUrl);
   const database = client.db("addressBook");
   return database.collection("addressBook");
@@ -29,7 +29,7 @@ export async function findByEmail(email) {
 
 export async function findByAddress(address) {
   const connection = await getConnection();
-  return await connection.find({"address": address}).toArray();
+  return await connection.find({"address": {$regex: address}}).toArray();
 
 }
 
