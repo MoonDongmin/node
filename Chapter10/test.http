@@ -1,0 +1,13 @@
+###
+POST http://192.168.10.107:8002/v2/token
+Accept: application/json
+Content-Type: application/json
+
+{
+  "clientSecret": "cc4200a0-0754-45db-8dd1-50b868749dd1"
+}
+
+
+###
+GET http://192.168.10.107:8002/v2/posts/my
+Authorization: eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsIm5pY2siOiJEb25nbWluIiwiaWF0IjoxNjc4ODg0NDI1LCJleHAiOjE2Nzg4ODYyMjUsImlzcyI6Im5vZGViaXJkIn0.MqS6rL1TwVX6_AZOqw04s_Al76hIELh25kGTJ5HQfeR1QmbavUPHtBb8RE1fmWS1
