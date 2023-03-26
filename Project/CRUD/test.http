@@ -1,0 +1,36 @@
+###
+POST http://localhost:8000/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "Jaeyoung@wisoft.io",
+  "password": "nodejs",
+  "userName": "Jaeyoung",
+  "nickName": "Jack"
+}
+
+###
+DELETE  http://localhost:8000/api/users/640871d1b723290eff40e032
+Accept: application/json
+
+###
+PATCH http://localhost:8000/api/users/640861c8c574497cda8e2333
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "JaeOne@wisoft.io",
+  "password": "nodejs",
+  "nickName": "JackOne"
+}
+
+###
+GET http://localhost:8000/api/users
+Accept: application/json
+Content-Type: application/json
+
+###
+GET http://localhost:8000/api/users/640861c8c574497cda8e2333
+Accept: application/json
+
