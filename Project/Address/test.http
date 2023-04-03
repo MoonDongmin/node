@@ -34,7 +34,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/users/6416d4f436ca46e0260893b1
+DELETE http://localhost:8000/api/users/64202f38fcf147193de865e3
 
 ###
 GET http://localhost:8000/api/users/jwt/6416d4f436ca46e0260893b1
