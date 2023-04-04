@@ -1,6 +1,6 @@
 import {MongoClient, ObjectId} from "mongodb";
 
-async function getConnection() {
+async function getConnection() { //addressBook collection
   const databaseUrl = "mongodb://Dongmin:min5314**@127.0.0.1/admin";
   const client = await MongoClient.connect(databaseUrl);
   const database = client.db("addressBook");
@@ -59,3 +59,5 @@ export async function deleteById(userId) {
   await connection.deleteOne({"_id": objectId});
 }
 
+
+e

@@ -9,8 +9,15 @@ export async function getConnection() {
     return database.collection("users");
 }
 
-
+// 유저 등록
 export async function registeruser(users) {
     let connection = await getConnection();
     return await connection.insertOne(users);
+}
+
+export async function checkUser(users){
+    const connection = await getConnection();
+    const login = await connection.findOne({"id":users.id,"password":users.password});
+    console.log(login.id,login.password);
+    return login;
 }

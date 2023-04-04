@@ -1,0 +1,37 @@
+POST http://localhost:8001/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "Gang",
+  "id": "Gang",
+  "password": "1234"
+}
+
+
+###
+GET http://localhost:8001/api/users/Gang
+Accept: application/json
+
+###
+DELETE http://localhost:8001/api/users/Gang
+Accept: application/json
+
+###
+PATCH http://localhost:8001/api/users/Gang
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username" : "강승민"
+}
+
+###
+POST http://localhost:8001/api/users/signup
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "Gang",
+  "password": "1234"
+}
