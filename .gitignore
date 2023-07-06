@@ -8,6 +8,7 @@
 .idea
 .vs
 node_modules/
+*.env
 
 # User-specific stuff
 .idea/**/workspace.xml
