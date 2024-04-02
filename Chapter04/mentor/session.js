@@ -1,6 +1,8 @@
-const http = require('http');
-const fs = require('fs').promises;
-const path = require('path');
+import http from "http";
+import * as fs from "fs";
+import path from "path";
+
+const __dirname = path.resolve();
 
 const parseCookies = (cookie = '') =>
     cookie
@@ -32,15 +34,15 @@ http.createServer(async (req, res) => {
         res.end();
         // 세션쿠키가 존재하고, 만료 기간이 지나지 않았다면
     } else if (cookies.session && session[cookies.session].expires > new Date()) {
-        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
         res.end(`${session[cookies.session].name}님 안녕하세요`);
     } else {
         try {
-            const data = await fs.readFile(path.join(__dirname, 'cookie2.html'));
-            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            const data = await fs.promises.readFile(path.join(__dirname, 'cookie2.html'));
+            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
             res.end(data);
         } catch (err) {
-            res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+            res.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
             res.end(err.message);
         }
     }

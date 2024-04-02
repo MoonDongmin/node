@@ -1,4 +1,6 @@
-const crypto = require('crypto');
+// const crypto = require('crypto');
+
+import * as crypto from "crypto";
 
 const pass = 'pass';
 const salt = 'salt';
