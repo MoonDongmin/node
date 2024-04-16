@@ -1,0 +1,12 @@
+### 사진 보내기
+POST localhost:3000/upload
+Content-Type: multipart/form-data; boundary=----hi
+
+------hi
+Content-Disposition: form-data; name="image"; filename="hello.png"
+Content-Type: image/png
+
+/Users/moon/Desktop/hello.png
+------hi--
+
+
