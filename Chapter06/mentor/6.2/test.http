@@ -4,9 +4,13 @@ Content-Type: multipart/form-data; boundary=----hi
 
 ------hi
 Content-Disposition: form-data; name="image"; filename="hello.png"
-Content-Type: image/png
+Content-Type: text/event-stream
 
 /Users/moon/Desktop/hello.png
 ------hi--
+
+
+###
+GET localhost:3000
 
 
