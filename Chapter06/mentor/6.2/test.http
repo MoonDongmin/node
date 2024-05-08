@@ -11,6 +11,6 @@ Content-Type: text/event-stream
 
 
 ###
-GET localhost:3000
+GET www.naver.com
 
 
