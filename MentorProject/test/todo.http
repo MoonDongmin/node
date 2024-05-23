@@ -1,0 +1,5 @@
+### 앱 초기 설정
+GET http://{{host}}:{{port}}
+Accept: text/plain
+
+####
