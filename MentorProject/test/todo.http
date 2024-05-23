@@ -1,5 +1,5 @@
 ### 앱 초기 설정
-GET http://{{host}}:{{port}}
+GET https://{{host}}:{{port}}
 Accept: text/plain
 
 ####
