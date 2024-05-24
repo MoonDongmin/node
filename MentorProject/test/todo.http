@@ -17,3 +17,14 @@ Content-Type: application/json
 }
 
 ###
+< {%
+    request.variables.set("reqId",client.global.get("maxId"))
+%}
+PATCH https://{{host}}:{{port}}/todos/5
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "update test integration",
+  "status": "done"
+}

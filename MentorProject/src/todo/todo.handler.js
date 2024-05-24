@@ -16,7 +16,28 @@ const add = (todo)=>{
   return newTodo
 }
 
+// Todo 업데이트
+const update = (id, todo) =>{
+  const index = findIndexById(id);
+  if(index === -1){
+    return {}
+  }
+
+  const updated = {
+    id,
+    ...todo
+  };
+
+  TodoData.todoData[index] = updated;
+  return updated;
+}
+
+const findIndexById = (id) => {
+  return TodoData.todoData.findIndex((todo) => todo.id === id);
+};
+
 export const TodoHandler = {
   findAll,
-  add
+  add,
+  update
 };
