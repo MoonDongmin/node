@@ -3,3 +3,17 @@ GET https://{{host}}:{{port}}
 Accept: text/plain
 
 ####
+GET https://{{host}}:{{port}}/todos
+Accept: application/json
+
+####
+POST https://{{host}}:{{port}}/todos
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "test integration",
+  "status": "progress"
+}
+
+###
