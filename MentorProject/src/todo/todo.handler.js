@@ -32,6 +32,19 @@ const update = (id, todo) =>{
   return updated;
 }
 
+// Todo 삭제
+const remove = (id)=>{
+  const index = findIndexById(id);
+  if(index === -1){
+    return {}
+  }
+
+  const removed = TodoData.todoData[index];
+  TodoData.todoData.splice(index,1);
+
+  return removed;
+}
+
 const findIndexById = (id) => {
   return TodoData.todoData.findIndex((todo) => todo.id === id);
 };
@@ -39,5 +52,6 @@ const findIndexById = (id) => {
 export const TodoHandler = {
   findAll,
   add,
-  update
+  update,
+  remove
 };

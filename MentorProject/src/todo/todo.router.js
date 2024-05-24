@@ -19,10 +19,14 @@ export const todoRouter = new express.Router();
      })
      .patch('/:id',(req,res)=>{
          const id = Number( req.params.id);
-         console.log(id === 5);
          const body = req.body;
          TodoHandler.update(id,body);
          res.send("수정 완료");
+     })
+     .delete('/:id',(req,res)=>{
+         const id = Number( req.params.id);
+         TodoHandler.remove(id);
+         res.send("삭제 완료");
      })
 
 

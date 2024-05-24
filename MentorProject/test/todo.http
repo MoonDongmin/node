@@ -28,3 +28,7 @@ Content-Type: application/json
   "title": "update test integration",
   "status": "done"
 }
+
+###
+DELETE https://{{host}}:{{port}}/todos/5
+Accept: application/json
