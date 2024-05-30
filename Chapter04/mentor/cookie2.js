@@ -1,8 +1,11 @@
-import http from "http";
-import * as fs from "fs";
-import path from "path";
+import http from 'http';
+import { promises as fs } from 'fs';
+import * as path from "path";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const parseCookies = (cookie = '') =>
     cookie
@@ -23,25 +26,25 @@ http.createServer(async (req, res) => {
         // 쿠키 유효 시간을 현재시간 + 5분으로 설정
         expires.setMinutes(expires.getMinutes() + 5);
         res.writeHead(302, {
-            Location: '/',
+            Location: '/user',
             'Set-Cookie': `name=${encodeURIComponent(name)}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
         });
         res.end();
         // name이라는 쿠키가 있는 경우
     } else if (cookies.name) {
-        res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(`${cookies.name}님 안녕하세요`);
     } else {
         try {
-            const data = await fs.promises.readFile(path.join(__dirname, 'cookie2.html'));
-            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+            const data = await fs.readFile(path.join(__dirname, 'cookie2.html'));
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
             res.end(data);
         } catch (err) {
-            res.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
+            res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
             res.end(err.message);
         }
     }
 })
-    .listen(808, () => {
-        console.log('808번 포트에서 서버 대기 중입니다!');
+    .listen(8084, () => {
+        console.log('8084번 포트에서 서버 대기 중입니다!');
     });

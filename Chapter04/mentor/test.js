@@ -1,5 +1,5 @@
 import http from 'http';
-import * as fs from 'fs/promises';
+import fs from 'fs/promises';
 import path from 'path';
 
 const __dirname = path.resolve();
@@ -9,6 +9,7 @@ const users = {};  //데이터 저장용
 
 http.createServer(async (req, res) => {
     try {
+        console.log(req.method, req.url);
         if (req.method === 'GET') {
             if (req.url === '/') {
                 const data = await fs.readFile(path.join(__dirname, 'restFront.html'));
@@ -28,7 +29,7 @@ http.createServer(async (req, res) => {
             } catch (err) {
                 //주소에 해당하는 라우트 찾지 못했다는 404 Not Found error 발생
             }
-        } else if (req === 'POST') {
+        } else if (req.method === 'POST') {
             if (req.url === '/user') {
                 let body = '';
                 // 요청의 body를 stream 형식으로 받음
