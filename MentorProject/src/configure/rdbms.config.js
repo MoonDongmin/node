@@ -1,82 +1,48 @@
-// ../configure/rdbms.config.js
+import sqlite3 from "sqlite3";
+import { promisify } from "util";
 
-import sqlite3 from 'sqlite3';
-
-let db;
+const rdbms = new sqlite3.Database(":memory:");
 
 const open = () => {
-    db = new sqlite3.Database(':memory:');
+    return new Promise((resolve, reject) => {
+        rdbms.on('open', () => {
+            console.log('SQLite 데이터베이스가 열렸습니다.');
+            resolve();
+        });
+    });
 };
-
-const close = () => {
-    db.close();
-};
+const close = () => promisify(rdbms.close.bind(rdbms))();
+const getQuery = (query) => promisify(rdbms.get.bind(rdbms))(query);
+const allQuery = (query) => promisify(rdbms.all.bind(rdbms))(query);
+const runCommand = (query) => promisify(rdbms.run.bind(rdbms))(query);
 
 const createTable = () => {
     return `CREATE TABLE IF NOT EXISTS todo(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     status TEXT
-  )`;
+    )`;
 };
 
 const insertDummy = () => {
     return `INSERT INTO todo (title, status) 
-          VALUES ('첫 번째 할일','진행중'),
-                 ('두 번째 할일','완료'),
-                 ('세 번째 할일','대기중'),
-                 ('네 번째 할일','진행중'),
-                 ('다섯 번째 할일','완료')`;
+            values ('First  Todo','pending'),
+            ('Second  Todo','done'),
+            ('Third  Todo','pending'),
+            ('Fourth  Todo','progress'),
+            ('Fifth  Todo','pending')`;
 };
 
-const initialize = () => {
-    runCommand(createTable());
-    runCommand(insertDummy());
-};
+const initialize = async () => {
 
-const runCommand = (query) => {
-    return new Promise((resolve, reject) => {
-        db.run(query, function(err) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ lastID: this.lastID, changes: this.changes });
-            }
-        });
-    });
-};
+         runCommand(createTable())};
 
-const getQuery = (query) => {
-    return new Promise((resolve, reject) => {
-        db.get(query, (err, row) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(row);
-            }
-        });
-    });
-};
-
-const allQuery = (query) => {
-    return new Promise((resolve, reject) => {
-        db.all(query, (err, rows) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(rows);
-            }
-        });
-    });
-};
-
-const RdbmsConfig = {
-    open,
-    close,
+ const RdbmsConfig = {
+     open,
     initialize,
-    runCommand,
     getQuery,
     allQuery,
+    close,
 };
 
 export default RdbmsConfig;

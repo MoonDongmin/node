@@ -1,6 +1,9 @@
-import RdbmsConfig from '../configure/rdbms.config.js';
+// import RdbmsConfig from '../configure/rdbms.config.js';
 
-const findAll = () => {
+
+import RdbmsConfig from "../configure/rdbms.config.js";
+
+const findAll =  () => {
     const query = "SELECT * FROM todo";
     return RdbmsConfig.allQuery(query);
 };
