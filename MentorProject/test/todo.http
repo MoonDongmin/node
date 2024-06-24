@@ -20,7 +20,7 @@ Content-Type: application/json
 < {%
     request.variables.set("reqId",client.global.get("maxId"))
 %}
-PATCH https://{{host}}:{{port}}/todos/5
+PATCH https://{{host}}:{{port}}/todos/66
 Accept: application/json
 Content-Type: application/json
 
@@ -30,5 +30,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE https://{{host}}:{{port}}/todos/7
+DELETE https://{{host}}:{{port}}/todos/66
 Accept: application/json

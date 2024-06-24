@@ -14,7 +14,20 @@ dotenv.config();
 TodoData.initialize();
 
 // RdbmsConfig.open();
-RdbmsConfig.initialize();
+// RdbmsConfig.initialize();
+
+
+const startServer = async () => {
+  try {
+    const connection = await RdbmsConfig.open();
+    await RdbmsConfig.initialize(connection);
+
+  } catch (error) {
+    console.error('서버 시작 실패:', error);
+  }
+};
+
+startServer();
 
 const app = new express();
 const options = {
