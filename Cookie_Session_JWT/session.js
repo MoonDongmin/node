@@ -43,7 +43,6 @@ app.get('/signup', (req, res) => {
 app.post('/signup', (req, res) => {
     const { username, password } = req.body;
 
-
     // 세션에 사용자 정보 저장
     req.session.username = username;
 

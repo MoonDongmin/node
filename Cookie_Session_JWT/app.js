@@ -36,6 +36,7 @@ app.post('/signup', (req, res) => {
     // ...
 
     // 쿠키 설정
+    // httpOnly: true는 쿠키를 클라이언트 측 JavaScript로부터 숨기고, 이를 통해 보안을 강화하는 중요한 옵션입니다.
     res.cookie('username', username, {maxAge: 900000, httpOnly: true});
 
     res.send('회원가입이 완료되었습니다!');

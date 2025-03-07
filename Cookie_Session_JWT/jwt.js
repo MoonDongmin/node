@@ -71,6 +71,7 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ username: user.username }, secretKey, { expiresIn: '5m' });
 
     res.send(`로그인 성공! \n access: ${token}`);
+    console.log(token);
 });
 
 // 인증 미들웨어
